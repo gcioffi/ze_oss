@@ -37,7 +37,7 @@ TEST(CameraRigTests, testYamlLoading)
       cameraRigFromYaml(joinPath(getTestDataDir("camera_models"),
                                  "camera_rig_1.yaml"));
 
-  EXPECT_EQ(rig->size(), 2);
+  EXPECT_EQ(rig->size(), 2u);
   EXPECT_NEAR(rig->at(0).projectionParameters()(0), 458.654, 1e-3);
   EXPECT_NEAR(rig->at(1).projectionParameters()(0), 457.587, 1e-3);
   EXPECT_NEAR(rig->T_C_B(0).getTransformationMatrix()(0, 0), 0.0148655, 1e-3);

@@ -259,8 +259,8 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_EQ(i, queue.size());
     queue.write(createObj());
   }
-  EXPECT_EQ(7, queue.size());
-  EXPECT_EQ(7, s_num_live);
+  EXPECT_EQ(7u, queue.size());
+  EXPECT_EQ(7u, s_num_live);
   EXPECT_TRUE(queue.full());
   EXPECT_FALSE(queue.nonBlockingWrite(createObj()));
   EXPECT_FALSE(queue.timedWrite(createObj(), 1));
@@ -273,8 +273,8 @@ TEST(ThreadSafeFifo, Default)
   }
 
   EXPECT_TRUE(queue.empty());
-  EXPECT_EQ(0, queue.size());
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, queue.size());
+  EXPECT_EQ(0u, s_num_live);
 
   TestObjectPtr obj;
   EXPECT_FALSE(queue.nonBlockingRead(obj));
@@ -295,8 +295,8 @@ TEST(ThreadSafeFifo, Default)
     TestObjectPtr obj = createObj();
     queue.write(obj); // use const reference type
   }
-  EXPECT_EQ(7, queue.size());
-  EXPECT_EQ(7, s_num_live);
+  EXPECT_EQ(7u, queue.size());
+  EXPECT_EQ(7u, s_num_live);
 
   // read the events from the queue
   for (unsigned i = 0; i < 4; ++i)
@@ -306,16 +306,16 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_EQ(i, obj->counter());
   }
 
-  EXPECT_EQ(3, queue.size());
-  EXPECT_EQ(3, s_num_live);
+  EXPECT_EQ(3u, queue.size());
+  EXPECT_EQ(3u, s_num_live);
 
   for (unsigned i = 0; i < 2; ++i)
   {
     queue.write(createObj());
   }
 
-  EXPECT_EQ(5, queue.size());
-  EXPECT_EQ(5, s_num_live);
+  EXPECT_EQ(5u, queue.size());
+  EXPECT_EQ(5u, s_num_live);
 
   for (unsigned i = 0; i < 5; ++i)
   {
@@ -324,8 +324,8 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_EQ(i+4, obj->counter());
   }
 
-  EXPECT_EQ(0, queue.size());
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, queue.size());
+  EXPECT_EQ(0u, s_num_live);
 
   //
   // use non-blocking reads and writes
@@ -338,7 +338,7 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_TRUE(queue.nonBlockingWrite(createObj()));
   }
   EXPECT_FALSE(queue.nonBlockingWrite(createObj()));
-  EXPECT_EQ(7, s_num_live);
+  EXPECT_EQ(7u, s_num_live);
 
   for (unsigned i = 0; i < 4; ++i)
   {
@@ -351,8 +351,8 @@ TEST(ThreadSafeFifo, Default)
   {
     EXPECT_TRUE(queue.nonBlockingWrite(createObj()));
   }
-  EXPECT_EQ(5, queue.size());
-  EXPECT_EQ(5, s_num_live);
+  EXPECT_EQ(5u, queue.size());
+  EXPECT_EQ(5u, s_num_live);
   for (unsigned i = 0; i < 3; ++i)
   {
     TestObjectPtr obj;
@@ -368,8 +368,8 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_EQ(i+8, obj->counter()); // 7 previous reads, plus one failed write
   }
   EXPECT_TRUE(queue.empty());
-  EXPECT_EQ(0, queue.size());
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, queue.size());
+  EXPECT_EQ(0u, s_num_live);
 
   EXPECT_FALSE(queue.nonBlockingRead(obj));
 
@@ -384,7 +384,7 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_TRUE(queue.timedWrite(createObj(), 1));
   }
   EXPECT_FALSE(queue.timedWrite(createObj(), 1));
-  EXPECT_EQ(7, s_num_live);
+  EXPECT_EQ(7u, s_num_live);
 
   for (unsigned i = 0; i < 4; ++i)
   {
@@ -397,8 +397,8 @@ TEST(ThreadSafeFifo, Default)
   {
     EXPECT_TRUE(queue.timedWrite(createObj(), 1));
   }
-  EXPECT_EQ(5, queue.size());
-  EXPECT_EQ(5, s_num_live);
+  EXPECT_EQ(5u, queue.size());
+  EXPECT_EQ(5u, s_num_live);
   for (unsigned i = 0; i < 3; ++i)
   {
     TestObjectPtr obj;
@@ -414,8 +414,8 @@ TEST(ThreadSafeFifo, Default)
     EXPECT_EQ(i+8, obj->counter()); // 7 previous reads, plus one failed write
   }
   EXPECT_TRUE(queue.empty());
-  EXPECT_EQ(0, queue.size());
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, queue.size());
+  EXPECT_EQ(0u, s_num_live);
 
   EXPECT_FALSE(queue.timedRead(obj, 1));
 
@@ -427,11 +427,11 @@ TEST(ThreadSafeFifo, Default)
   {
     queue.write(createObj());
   }
-  EXPECT_EQ(7, s_num_live);
+  EXPECT_EQ(7u, s_num_live);
   EXPECT_FALSE(queue.empty());
   EXPECT_TRUE(queue.full());
   queue.clear();
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, s_num_live);
   EXPECT_TRUE(queue.empty());
   EXPECT_FALSE(queue.full());
 }
@@ -454,7 +454,7 @@ TEST(ThreadSafeFifo, StringTest)
     queue.write("z");
   }
 
-  EXPECT_EQ(9, queue.size());
+  EXPECT_EQ(9u, queue.size());
 
   for (unsigned i = 0; i < 3; i++) {
     EXPECT_EQ("x", queue.read());
@@ -465,23 +465,23 @@ TEST(ThreadSafeFifo, StringTest)
 
 TEST(ThreadSafeFifo, BlockingReadTest)
 {
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, s_num_live);
   {
     BlockingReadTest test;
     test.runBlockingTest(0, 200);
   }
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, s_num_live);
 }
 
 TEST(ThreadSafeFifo, BlockingWriteTest)
 {
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, s_num_live);
   {
     BlockingWriteTest test;
-    EXPECT_EQ(7, s_num_live);
+    EXPECT_EQ(7u, s_num_live);
     test.runBlockingTest(0, 200);
   }
-  EXPECT_EQ(0, s_num_live);
+  EXPECT_EQ(0u, s_num_live);
 }
 
 TEST(ThreadSafeFifo, ThreadTest)

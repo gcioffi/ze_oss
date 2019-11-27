@@ -68,7 +68,7 @@ TEST(TimeStampMatcher, matchTest)
   // Now loop through all estimated poses and find closest groundtruth-stamp.
   auto& gt_buffer = gt_poses.getBuffer();
   auto es_poses_data = es_poses.getStampedTransformationVector();
-  int n_skipped = 0, n_checked = 0;
+  size_t n_skipped = 0, n_checked = 0;
   for (const std::pair<int64_t, Transformation>& stampd_pose : es_poses_data)
   {
     Vector7 matched_gt_pose;

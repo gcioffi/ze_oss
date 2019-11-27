@@ -47,7 +47,7 @@ TEST(StlUtilsTests, testRange)
 
   {
     auto vec = range(3, 6);
-    EXPECT_EQ(vec.size(), 3);
+    EXPECT_EQ(vec.size(), 3u);
     EXPECT_EQ(vec[0], 3u);
     EXPECT_EQ(vec[2], 5u);
   }

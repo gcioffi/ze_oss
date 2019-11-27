@@ -38,17 +38,17 @@ TEST(RingViewTest, testFullRingScalar)
 
   std::vector<int> vec(100);
   ring_view<int> rv(vec.begin(), vec.end());
-  ASSERT_EQ(100, rv.capacity());
-  ASSERT_EQ(100, rv.size());
-  ASSERT_EQ(99, rv.back_idx());
+  ASSERT_EQ(100u, rv.capacity());
+  ASSERT_EQ(100u, rv.size());
+  ASSERT_EQ(99u, rv.back_idx());
   rv.push_back(1);
-  ASSERT_EQ(100, rv.capacity());
-  ASSERT_EQ(100, rv.size());
-  ASSERT_EQ(0, rv.back_idx());
+  ASSERT_EQ(100u, rv.capacity());
+  ASSERT_EQ(100u, rv.size());
+  ASSERT_EQ(0u, rv.back_idx());
   rv.pop_front();
-  ASSERT_EQ(100, rv.capacity());
-  ASSERT_EQ(99, rv.size());
-  ASSERT_EQ(0, rv.back_idx());
+  ASSERT_EQ(100u, rv.capacity());
+  ASSERT_EQ(99u, rv.size());
+  ASSERT_EQ(0u, rv.back_idx());
 }
 
 TEST(RingViewTest, testFullRingScalarFixedSIze)
@@ -57,7 +57,7 @@ TEST(RingViewTest, testFullRingScalarFixedSIze)
 
   std::vector<int> vec(100);
   ring_view<int, 100> rv(vec.begin(), vec.end());
-  EXPECT_EQ(100, rv.capacity());
+  EXPECT_EQ(100u, rv.capacity());
 }
 
 TEST(RingViewTest, testEmptyRingScalar)
@@ -66,15 +66,15 @@ TEST(RingViewTest, testEmptyRingScalar)
 
   std::vector<int> vec(100);
   ring_view<int> rv(vec.begin(), vec.end(), vec.begin(), 0);
-  ASSERT_EQ(100, rv.capacity());
-  ASSERT_EQ(0, rv.size());
+  ASSERT_EQ(100u, rv.capacity());
+  ASSERT_EQ(0u, rv.size());
   rv.push_back(1);
   ASSERT_EQ(1, rv.at(0));
-  ASSERT_EQ(100, rv.capacity());
-  ASSERT_EQ(1, rv.size());
+  ASSERT_EQ(100u, rv.capacity());
+  ASSERT_EQ(1u, rv.size());
   rv.pop_front();
-  ASSERT_EQ(100, rv.capacity());
-  ASSERT_EQ(0, rv.size());
+  ASSERT_EQ(100u, rv.capacity());
+  ASSERT_EQ(0u, rv.size());
 }
 
 TEST(RingViewTest, testRingEigenVector)
@@ -127,16 +127,16 @@ TEST(RingViewTest, testResetFront)
   std::vector<int> vec = {1, 2, 3, 4};
   ring_view<int> rv(vec.begin(), vec.end());
 
-  EXPECT_EQ(4, rv.size());
-  EXPECT_EQ(0, rv.begin().index());
-  EXPECT_EQ(4, rv.end().index());
+  EXPECT_EQ(4u, rv.size());
+  EXPECT_EQ(0u, rv.begin().index());
+  EXPECT_EQ(4u, rv.end().index());
 
   rv.reset_front(2);
-  EXPECT_EQ(2, rv.size());
+  EXPECT_EQ(2u, rv.size());
   EXPECT_EQ(3, rv.at(0));
 
   rv.reset_front(0);
-  EXPECT_EQ(4, rv.size());
+  EXPECT_EQ(4u, rv.size());
   EXPECT_EQ(1, rv.at(0));
 }
 

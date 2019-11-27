@@ -41,7 +41,7 @@ TEST(ImuYamlSerialization, testYamlLoading)
 
   ze::ImuRig::Ptr rig = ze::ImuRig::loadFromYaml(yaml_file);
 
-  EXPECT_EQ(rig->size(), 3);
+  EXPECT_EQ(rig->size(), 3u);
   EXPECT_STREQ(rig->label().c_str(), "zuricheyeonetest");
   EXPECT_STREQ(rig->at(0).label().c_str(), "bmx0");
   EXPECT_EQ(ze::ImuIntrinsicType::ScaleMisalignment,

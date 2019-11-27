@@ -103,13 +103,13 @@ TEST(RingBufferTest, testRemoveOlderThanTimestamp)
   }
 
   buffer.lock();
-  EXPECT_EQ(9, buffer.times().size());
+  EXPECT_EQ(9u, buffer.times().size());
   buffer.unlock();
 
   buffer.removeDataBeforeTimestamp(3);
   buffer.lock();
   EXPECT_EQ(3, buffer.times().front());
-  EXPECT_EQ(7, buffer.times().size());
+  EXPECT_EQ(7u, buffer.times().size());
   buffer.unlock();
 }
 
