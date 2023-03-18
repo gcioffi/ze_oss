@@ -158,6 +158,7 @@ bool convert<std::shared_ptr<ze::CameraRig>>::decode(
         T_Ci_B.push_back(ze::Transformation(
                            ze::Quaternion::fromApproximateRotationMatrix(T_B_C.block<3,3>(0,0)),
                            T_B_C.block<3,1>(0,3)).inverse());
+
       }
       else if (camera_node["T_C_B"])
       {

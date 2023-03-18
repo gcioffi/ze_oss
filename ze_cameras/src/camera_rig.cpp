@@ -83,7 +83,6 @@ CameraRig::Ptr CameraRig::getSubRig(
 CameraRig::Ptr cameraRigFromYaml(const std::string& yaml_file)
 {
   CHECK(fileExists(yaml_file)) << "File does not exist: " << yaml_file;
-
   CameraRig::Ptr rig;
   try
   {
